@@ -144,7 +144,7 @@ const ntShops = [
 { "code": 190, "name": "Polesden Lacey", "postcode": "RH5 6BD; UK", "manager": "Alex Pratley", "phone": "01372 414953" },
 { "code": 218, "name": "Powis Castle", "postcode": "SY21 8RF; UK", "manager": "Kathryn Greatorex", "phone": "01938 551928" },
 { "code": 225, "name": "Powis Plants", "postcode": "SY21 8RF; UK", "manager": "Kathryn Greatorex", "phone": "01938 551926" },
-{ "code": 210, "name": "Quarry Bank Mill", "postcode": "", "manager": "Gillian Topham", "phone": "01625 445847" },
+// { "code": 210, "name": "Quarry Bank Mill", "postcode": "", "manager": "Gillian Topham", "phone": "01625 445847" },
 { "code": 179, "name": "Red House", "postcode": "DA6 8JF; UK", "manager": "Robynn Finney", "phone": "2083036359" },
 { "code": 219, "name": "Rhossili", "postcode": "SA3 1PR; UK", "manager": "Richard Williams", "phone": "01792 390707" },
 { "code": 148, "name": "Rievaulx", "postcode": "YO62 5LJ; UK", "manager": "Anthony Poole", "phone": "01439 798340" },

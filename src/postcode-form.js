@@ -12,7 +12,7 @@ class PostcodeForm extends Component {
 
   handleChange(event) {
     this.setState({value: event.target.value});
-    this.ee.emit('postcode', [event.target.value]);
+    this.ee.emit('postcode', event.target.value);
   }
 
   handleSubmit(event) {
