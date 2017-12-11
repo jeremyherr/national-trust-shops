@@ -31,3 +31,5 @@ EX
 TN
 
 Northern Ireland has 7 shops
+
+TODO: get postcode from geolocation API in a non-annoying way

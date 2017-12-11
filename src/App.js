@@ -13,12 +13,24 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Find National Trust Shops near you</h1>
-        </header>
-        <PostcodeForm ee={this.ee} />
-        <RoughDistances ee={this.ee} />
+      <div className="container">
+        <div className="App">
+          <div className="row">
+            <div className="col-12">
+              <header className="App-header">
+                <h1 className="App-title">Find National Trust Shops near you</h1>
+              </header>
+            </div>
+            <div className="row">
+              <div className="col">
+                <PostcodeForm ee={this.ee} />
+              <div className="col">
+              </div>
+                <RoughDistances ee={this.ee} />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

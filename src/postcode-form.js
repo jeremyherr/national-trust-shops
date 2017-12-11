@@ -47,11 +47,13 @@ class PostcodeForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
-          Enter your postcode:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-          <p className="input-error">{this.state.errorMessage}</p>
+          Your postcode<br />
+          <input type="text" value={this.state.value} onChange={this.handleChange} /><br />
+          <span className="input-error">{this.state.errorMessage}</span>
         </label>
-        <input disabled={this.state.errorMessage || !this.state.value} type="submit" value="Query Google Maps API for closest shops" />
+        <div>
+          <input disabled={this.state.errorMessage || !this.state.value} type="submit" value="Query Google Maps API for closest shops" />
+        </div>
       </form>
     );
   }

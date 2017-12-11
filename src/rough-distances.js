@@ -80,7 +80,6 @@ class RoughDistances extends Component {
 
     return (
       <div>
-        <p>You entered: {this.state.postcode}</p>
         <p>Rough guess of closest 25 shops based on distance between postcode areas:</p>
         <ol>{nearestShopsComponents}</ol>
       </div>
