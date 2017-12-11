@@ -6,29 +6,33 @@ import { postcodeAreaLocations } from './postcode-area-locations';
 const MAX_DIMENSION_ALLOWED = 25;
 
 function distanceBetweenPostcodeAreas(origin, destination) {
-    const originArea = origin.toLowerCase().match(/^([a-z]+)\d?/)[1];
-    const destinationArea = destination.toLowerCase().match(/^([a-z]+)\d?/)[1];
+  const originArea = origin.toLowerCase().match(/^([a-z]+)\d?/)[1];
+  const destinationArea = destination.toLowerCase().match(/^([a-z]+)\d?/)[1];
 
-    // There are 7 Northern Ireland shop locations, but the free OS data has no NI locations
-    if (!(destinationArea in postcodeAreaLocations)) {
-        console.warn(`destination area ${destinationArea} not found`);
-        return 10000000;
-    }
+  // There are 7 Northern Ireland shop locations, but the free OS data has no NI locations
+  if (!(destinationArea in postcodeAreaLocations)) {
+    console.warn(`destination area ${destinationArea} not found`);
+    return 10000000;
+  }
 
-    const {easting: originEasting, northing: originNorthing} = postcodeAreaLocations[originArea];
-    const {easting: destinationEasting, northing: destinationNorthing} = postcodeAreaLocations[destinationArea];
+  if (!(originArea in postcodeAreaLocations)) {
+    return 10000000;
+  }
 
-    return Math.sqrt(Math.pow(originEasting - destinationEasting, 2) + Math.pow(originNorthing - destinationNorthing, 2));
+  const {easting: originEasting, northing: originNorthing} = postcodeAreaLocations[originArea];
+  const {easting: destinationEasting, northing: destinationNorthing} = postcodeAreaLocations[destinationArea];
+
+  return Math.sqrt(Math.pow(originEasting - destinationEasting, 2) + Math.pow(originNorthing - destinationNorthing, 2));
 }
 
 function closestShopsRoughly(origin, numberOfShops) {
-    ntShops.forEach(shop => {
-      shop.distance = distanceBetweenPostcodeAreas(origin, shop.postcode);
-    });
+  ntShops.forEach(shop => {
+    shop.distance = distanceBetweenPostcodeAreas(origin, shop.postcode);
+  });
 
-    ntShops.sort((a, b) => a.distance - b.distance);
+  ntShops.sort((a, b) => a.distance - b.distance);
 
-    return ntShops.slice(0, numberOfShops);
+  return ntShops.slice(0, numberOfShops);
 }
 
 class RoughDistances extends Component {
@@ -77,6 +81,7 @@ class RoughDistances extends Component {
     return (
       <div>
         <p>You entered: {this.state.postcode}</p>
+        <p>Rough guess of closest 25 shops based on distance between postcode areas:</p>
         <ol>{nearestShopsComponents}</ol>
       </div>
     );
