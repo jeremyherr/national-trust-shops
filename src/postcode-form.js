@@ -12,21 +12,22 @@ class PostcodeForm extends Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    const postcode = event.target.value;
+    this.setState({value: postcode});
 
-    if (event.target.value === '') {
+    if (postcode === '') {
       this.setState({errorMessage: ''});
       this.ee.emit('postcode', '');
       return;
     }
 
-    const postcodeAreaMatch = event.target.value.match(/^([A-Za-z]+)/);
+    const postcodeAreaMatch = postcode.match(/^([A-Za-z]+)/);
     if (postcodeAreaMatch === null) {
       this.setState({errorMessage: 'invalid postcode'});
       this.ee.emit('postcode', '');
       return;
     }
-    const postcodeArea = postcodeAreaMatch[1];
+    const postcodeArea = postcodeAreaMatch[1].toLowerCase();
 
     if (!(postcodeArea in postcodeAreaLocations)) {
       this.setState({errorMessage: `${postcodeArea} is not a valid postcode area`});
@@ -36,7 +37,7 @@ class PostcodeForm extends Component {
 
     this.setState({errorMessage: ''});
 
-    this.ee.emit('postcode', event.target.value);
+    this.ee.emit('postcode', postcode.toLowerCase());
   }
 
   handleSubmit(event) {

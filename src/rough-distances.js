@@ -27,7 +27,7 @@ function distanceBetweenPostcodeAreas(origin, destination) {
 
 function closestShopsRoughly(origin, numberOfShops) {
   ntShops.forEach(shop => {
-    shop.distance = distanceBetweenPostcodeAreas(origin, shop.postcode);
+    shop.distance = Number((distanceBetweenPostcodeAreas(origin, shop.postcode) / 1000).toFixed(0));
   });
 
   ntShops.sort((a, b) => a.distance - b.distance);
@@ -59,6 +59,7 @@ class RoughDistances extends Component {
   }
 
 
+  // TODO clean this up
   render() {
     let nearestShopsComponents;
     if (/^[A-Za-z]+(\d+)?/.test(this.state.postcode)) {
@@ -66,7 +67,9 @@ class RoughDistances extends Component {
       nearestShopsComponents = nearestShops.map((shop, index) => {
         return (
           <li key={index}>
-            {shop.name}, {shop.postcode}, {shop.distance}
+            <div className="shop-name">{shop.name}</div>
+            <div className="shop-postcode">{shop.postcode}</div>
+            <div className="shop-distance">{shop.distance} km</div>
           </li>
         );
       });
@@ -80,8 +83,8 @@ class RoughDistances extends Component {
 
     return (
       <div>
-        <p>Rough guess of closest 25 shops based on distance between postcode areas:</p>
-        <ol>{nearestShopsComponents}</ol>
+        <p>Rough guess of closest 25 shops based on straight-line distance between postcode areas:</p>
+        <ul>{nearestShopsComponents}</ul>
       </div>
     );
   }

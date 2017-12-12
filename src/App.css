@@ -8,3 +8,23 @@
   color: red;
 }
 
+ul {
+  list-style-type: none;
+}
+
+.shop-name {
+  width: 12em;
+  float: left;
+  clear: left;
+}
+
+.shop-postcode {
+  width: 8em;
+  float: left;
+}
+
+.shop-distance {
+  width: 6em;
+  float: left;
+  text-align: right;
+}

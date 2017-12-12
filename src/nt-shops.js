@@ -174,7 +174,7 @@ const ntShops = [
 { "code": 146, "name": "Studley", "postcode": "HG4 3DZ; UK", "manager": "Emily Haines", "phone": "01765 690872" },
 { "code": 268, "name": "Sudbury", "postcode": "DE6 5HT; UK", "manager": "Mike Knowles", "phone": "01283 585337x29" },
 { "code": 86, "name": "Sutton Hoo", "postcode": "IP12 3DG; UK", "manager": "Samantha Golding", "phone": "01394 389709" },
-{ "code": 287, "name": "Sutton House", "postcode": "e9 6jq; UK", "manager": "Lauren Sweeney", "phone": "020 8525 9054" },
+{ "code": 287, "name": "Sutton House", "postcode": "E9 6JQ; UK", "manager": "Lauren Sweeney", "phone": "020 8525 9054" },
 { "code": 271, "name": "Tattershall", "postcode": "LN4 4LR; UK", "manager": "Lynette Cotterill", "phone": "01526 348821" },
 { "code": 194, "name": "The Vyne", "postcode": "RG24 9HL; UK", "manager": "Jane Bostock", "phone": "01256 880039" },
 { "code": 29, "name": "The Workhouse", "postcode": "NG25 0PT; UK", "manager": "Fiona Lewin", "phone": "01636 817260" },
