@@ -4,11 +4,29 @@ import { postcodeAreaLocations } from './postcode-area-locations';
 class PostcodeForm extends Component {
   constructor(properties) {
     super(properties);
-    this.state = {value: '', errorMessage: ''};
+    this.state = {
+      value: '',
+      errorMessage: '',
+      googleMapsApiReady: false
+    };
     this.ee = properties.ee;
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    window.initMap = function() {
+      console.log('initMap');
+      this.setState({googleMapsApiReady: true});
+    }.bind(this);
+
+    const apiKey = 'AIzaSyBapgm2ILdfCzrDpUGVddGUmlEXOev3v4M';
+    const docHead = document.getElementsByTagName('head')[0];
+    const docScript = document.createElement('script');
+    docScript.type = 'text/javascript';
+    docScript.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+    docHead.appendChild(docScript);
+
+    console.log('PostcodeForm constructor');
   }
 
   handleChange(event) {
@@ -53,7 +71,7 @@ class PostcodeForm extends Component {
           <span className="input-error">{this.state.errorMessage}</span>
         </label>
         <div>
-          <input disabled={this.state.errorMessage || !this.state.value} type="submit" value="Query Google Maps API for closest shops" />
+          <input disabled={this.state.errorMessage || !this.state.value || !this.state.googleMapsApiReady} type="submit" value="Query Google Maps API for closest shops" />
         </div>
       </form>
     );
