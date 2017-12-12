@@ -35,33 +35,46 @@ function closestShopsRoughly(origin, numberOfShops) {
   return ntShops.slice(0, numberOfShops);
 }
 
+function updatePostcode(postcode) {
+  this.setState({postcode: postcode});
+}
+
+function googleResultReceived(isReceived) {
+  if (isReceived) {
+    this.setState({cssClass: 'non-final-result'});
+  } else {
+    this.setState({cssClass: ''});
+  }
+}
+
+
 class RoughDistances extends Component {
   constructor(properties) {
     super(properties);
-
+    this.state = {cssClass: ''};
     this.ee = properties.ee;
+    this.updatePostcode = updatePostcode.bind(this);
+    this.googleResultReceived = googleResultReceived.bind(this);
 
     this.state = {
       postcode: ''
     };
   }
 
-  updatePostcode(postcode) {
-    this.setState({postcode: postcode});
-  }
-
   componentDidMount() {
-    this.ee.on('postcode', this.updatePostcode.bind(this));
+    this.ee.on('postcode', this.updatePostcode);
+    this.ee.on('google-result', this.googleResultReceived);
   }
 
   componentWillUnmount() {
-    this.ee.removeListener('postcode', this.updatePostcode.bind(this));
+    this.ee.removeListener('postcode', this.updatePostcode);
+    this.ee.removeListener('google-result', this.googleResultReceived);
   }
 
   render() {
     if (!/^[A-Za-z]+(\d+)?/.test(this.state.postcode)) {
       return (
-        <div>
+        <div className={this.state.cssClass}>
           <p>Rough estimate of closest 25 shops based on straight-line distance between postcode areas:</p>
           <p>Awaiting valid postcode</p>
         </div>
@@ -82,7 +95,7 @@ class RoughDistances extends Component {
     });
 
     return (
-      <div>
+      <div className={this.state.cssClass}>
         <p>Rough guess of closest 25 shops based on straight-line distance between postcode areas:</p>
         <ul>{nearestShopsComponents}</ul>
       </div>

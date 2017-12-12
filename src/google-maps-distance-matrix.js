@@ -23,6 +23,7 @@ function onDistanceMatrix(shops, response, status) {
   // TODO use promises to collect all the results and take action once they have all come back.
   console.log(closestShops.slice(0, 10));
 
+  this.ee.emit('google-result', true);
   this.setState({queryInProgress: false, closestShopsGoogleDirections: closestShops.slice(0, 10)});
 }
 
@@ -54,6 +55,12 @@ function updateClosestShopsPostcodeArea(closestShopsPostcodeArea) {
   this.closestShopsPostcodeArea = closestShopsPostcodeArea;
 }
 
+function clearResult(isGoogleResultStillValid) {
+  if (!isGoogleResultStillValid) {
+    this.setState({closestShopsGoogleDirections: []});
+  }
+}
+
 class GoogleDistances extends Component {
   constructor(properties) {
     super(properties);
@@ -65,16 +72,19 @@ class GoogleDistances extends Component {
     this.ee = properties.ee;
     this.updateClosestShopsPostcodeArea = updateClosestShopsPostcodeArea.bind(this);
     this.getDistanceMatrix = getDistanceMatrix.bind(this);
+    this.clearResult = clearResult.bind(this);
   }
 
   componentDidMount() {
     this.ee.on('closest-shops-postcode-area', this.updateClosestShopsPostcodeArea);
     this.ee.on('get-google-distances', this.getDistanceMatrix);
+    this.ee.on('google-result', this.clearResult);
   }
 
   componentWillUnmount() {
     this.ee.removeListener('closest-shops-postcode-area', this.updateClosestShopsPostcodeArea);
     this.ee.removeListener('get-google-distances', this.getDistanceMatrix);
+    this.ee.removeListener('google-result', this.clearResult);
   }
 
   render() {

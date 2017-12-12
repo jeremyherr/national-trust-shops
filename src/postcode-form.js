@@ -56,6 +56,7 @@ class PostcodeForm extends Component {
     this.setState({errorMessage: ''});
 
     this.ee.emit('postcode', postcode.toLowerCase());
+    this.ee.emit('google-result', false);
   }
 
   handleSubmit(event) {

@@ -8,6 +8,10 @@
   color: red;
 }
 
+.non-final-result {
+  color: gray;
+}
+
 ul {
   list-style-type: none;
 }
