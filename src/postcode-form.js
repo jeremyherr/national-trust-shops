@@ -5,7 +5,7 @@ class PostcodeForm extends Component {
   constructor(properties) {
     super(properties);
     this.state = {
-      value: '',
+      postcode: '',
       errorMessage: '',
       googleMapsApiReady: false
     };
@@ -31,7 +31,7 @@ class PostcodeForm extends Component {
 
   handleChange(event) {
     const postcode = event.target.value;
-    this.setState({value: postcode});
+    this.setState({postcode: postcode});
 
     if (postcode === '') {
       this.setState({errorMessage: ''});
@@ -60,6 +60,8 @@ class PostcodeForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    // TODO Allow user to select transportation mode in form
+    this.ee.emit('get-google-distances', this.state.postcode, 'DRIVING');
   }
 
   render() {
@@ -67,11 +69,11 @@ class PostcodeForm extends Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           Your postcode<br />
-          <input type="text" value={this.state.value} onChange={this.handleChange} /><br />
+          <input type="text" value={this.state.postcode} onChange={this.handleChange} /><br />
           <span className="input-error">{this.state.errorMessage}</span>
         </label>
         <div>
-          <input disabled={this.state.errorMessage || !this.state.value || !this.state.googleMapsApiReady} type="submit" value="Query Google Maps API for closest shops" />
+          <input disabled={this.state.errorMessage || !this.state.postcode || !this.state.googleMapsApiReady} type="submit" value="Query Google Maps API for closest shops" />
         </div>
       </form>
     );

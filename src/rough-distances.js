@@ -58,28 +58,28 @@ class RoughDistances extends Component {
     this.ee.removeListener('postcode', this.updatePostcode.bind(this));
   }
 
-
-  // TODO clean this up
   render() {
-    let nearestShopsComponents;
-    if (/^[A-Za-z]+(\d+)?/.test(this.state.postcode)) {
-      const nearestShops = closestShopsRoughly(this.state.postcode, MAX_DIMENSION_ALLOWED);
-      nearestShopsComponents = nearestShops.map((shop, index) => {
-        return (
-          <li key={index}>
-            <div className="shop-name">{shop.name}</div>
-            <div className="shop-postcode">{shop.postcode}</div>
-            <div className="shop-distance">{shop.distance} km</div>
-          </li>
-        );
-      });
-    } else {
-      nearestShopsComponents = [(
-        <li key={0}>
-          EMPTY
-        </li>
-      )];
+    if (!/^[A-Za-z]+(\d+)?/.test(this.state.postcode)) {
+      return (
+        <div>
+          <p>Rough estimate of closest 25 shops based on straight-line distance between postcode areas:</p>
+          <p>Awaiting valid postcode</p>
+        </div>
+      );
     }
+
+    const nearestShops = closestShopsRoughly(this.state.postcode, MAX_DIMENSION_ALLOWED);
+    this.ee.emit('closest-shops-postcode-area', nearestShops);
+
+    const nearestShopsComponents = nearestShops.map((shop, index) => {
+      return (
+        <li key={index}>
+          <div className="shop-name">{shop.name}</div>
+          <div className="shop-postcode">{shop.postcode}</div>
+          <div className="shop-distance">{shop.distance} km</div>
+        </li>
+      );
+    });
 
     return (
       <div>

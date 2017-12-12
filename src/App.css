@@ -12,6 +12,10 @@ ul {
   list-style-type: none;
 }
 
+li {
+  width: 31em;
+}
+
 .shop-name {
   width: 12em;
   float: left;
@@ -24,7 +28,19 @@ ul {
 }
 
 .shop-distance {
-  width: 6em;
+  width: 4em;
+  float: left;
+  text-align: right;
+}
+
+.shop-google-distance {
+  width: 4em;
+  float: left;
+  text-align: right;
+}
+
+.shop-google-duration {
+  width: 7em;
   float: left;
   text-align: right;
 }
