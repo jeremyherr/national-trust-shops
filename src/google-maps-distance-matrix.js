@@ -8,7 +8,7 @@ function onDistanceMatrix(shops, response, status) {
   // TODO is there a JS equivalent of Python's dict update()?
   closestShops.forEach((shop, i) => {
     shop.status = distancesFromOrigin[i].status;
-    shop.distance = distancesFromOrigin[i].distance;
+    shop.distance = Number((distancesFromOrigin[i].distance / 1000).toFixed(0));
     shop.duration = distancesFromOrigin[i].duration;
   });
 
@@ -38,8 +38,9 @@ function getDistanceMatrix(origin, travelMode) {
       origins: [origin],
       destinations: shops.map(x => x.postcode),
       // travelMode: 'DRIVING',
-      travelMode: 'TRANSIT',
+      // travelMode: 'TRANSIT',
       // travelMode: 'WALKING',
+      travelMode: travelMode,
       // transitOptions: TransitOptions,
       // drivingOptions: DrivingOptions,
       // unitSystem: UnitSystem,
@@ -91,7 +92,7 @@ class GoogleDistances extends Component {
     if (this.state.queryInProgress) {
       return (
         <div>
-          <p>Distances from Google Maps API:</p>
+          <p>Driving distances from Google Maps API:</p>
           <p>Querying Google Maps API...</p>
         </div>
       );
@@ -102,7 +103,7 @@ class GoogleDistances extends Component {
         <li key={index}>
           <div className="shop-name">{shop.name}</div>
           <div className="shop-postcode">{shop.postcode}</div>
-          <div className="shop-google-distance">{shop.distance.text}</div>
+          <div className="shop-google-distance">{shop.distance} km</div>
           <div className="shop-google-duration">{shop.duration.text}</div>
         </li>
       );
