@@ -111,7 +111,7 @@ class GoogleDistances extends Component {
 
     return (
       <div>
-        <p>Distances from Google Maps API:</p>
+        <p>Driving Distances from Google Maps API:</p>
         <ul>{nearestShopsComponents}</ul>
       </div>
     );
